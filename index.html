@@ -3,20 +3,50 @@
 <head>
     <title>Subscription Page </title>
   <link rel="stylesheet" href="subscribe.css">
+  <script>
+    $(document).ready(function() {
+      $(form).submit(function(event) {
+        var name = $("#namet").val();
+        var email = $("#email").val();
+        var data = {
+            name : name,
+            email : email,
+        };
+
+        $.ajax({
+          type: "POST",
+          url : "https://pyahph2imi.execute-api.us-east-2.amazonaws.com/dev/subscribe",
+          dataType: "json",
+          crossDomain: "true",
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function () {
+            // clear form and show a success message
+            alert("Successfull");
+            document.getElementById("contact-form").reset();
+            location.reload();
+          },
+          error: function () {
+            // show an error message
+            alert("UnSuccessfull");
+          }});
+      });
+      event.preventDefault();
+    });
+  </script>
 </head>
 <body>
-
-<h1>
-    Subscription Form
+  <h1>
+      Subscription Form
   </h1>
   
   <div>
-    <form action="">
+    <form>
       <input type="text" name="name" class="formStyle" placeholder="Name (required)" required />
       <input type="email" name="email" class="formStyle" placeholder="Email (required)" required />
       <a href="https://pyahph2imi.execute-api.us-east-2.amazonaws.com/dev/subscribe" class="formButton">Subscribe</a>
     </form>
   </div>
 
-  </body>
-  </html>
+</body>
+</html>
